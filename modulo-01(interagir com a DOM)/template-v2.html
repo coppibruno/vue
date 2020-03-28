@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>introdução vue instância</title>
+</head>
+<body>
+    <div id="app">
+        <!-- bind serve para fazer com que o vue entenda como variavel do mesmo pois HREF neste caso é uma propriedade padrão do HTML-->
+        <a v-bind:href="link">Google</a>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</html>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            link: "http://www.google.com.br"
+        },
+        methods: {
+         
+        }
+    })
+</script>
