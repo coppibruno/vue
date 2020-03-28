@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>introdução vue instância</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-once serve para que a variavel nunca seja alterado -->
+        <p v-once>{{ titulo }}</p>
+        <p>{{ saudacao() }}</p>
+        <!-- interpretar HTML -->
+        <p v-html="linkhtml"></p>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</html>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            titulo: "Usando VueJS!",
+            linkhtml: '<a href="http://google.com.br"> Google </a>'
+        },
+        methods: {
+            alterarTitulo(event) {
+                this.titulo = event.target.value
+            },
+            saudacao: function (){
+                this.titulo = 'Bom dia';
+                return this.titulo;
+            }
+        }
+    })
+</script>
