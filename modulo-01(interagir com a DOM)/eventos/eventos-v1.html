@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>introdução vue instância</title>
+</head>
+<body>
+    <div id="app">
+        
+        <p>{{ contador }}</p>
+        <button @click="functionContador">Somar 1</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</html>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            contador: 0
+        },
+        methods: {
+            functionContador() {
+                this.contador++;
+            },
+            saudacao: function (){
+                return 'Bom dia!';
+            }
+        }
+    })
+</script>
