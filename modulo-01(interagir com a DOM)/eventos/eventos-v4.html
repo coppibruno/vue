@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>introdução vue instância</title>
+    <style>
+        #app {
+            width: 1500px;
+            height: 1500px;
+        }
+    </style>
+</head>
+<body >
+    <form action="">
+        <div id="app" v-on:mousemove="atualizaXY" >
+            
+            <p>{{ contador }}</p>
+            <button @click.prevent="functionContador(5, $event)">Somar 1</button>
+            <p @mousemove.stop>Mouse {{ x }} {{ y }} </p>
+        </div>
+    </form>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</html>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            contador: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            functionContador(passo, e) {
+                this.contador += passo;
+                console.log(e)
+            },
+            atualizaXY(e){
+                this.x = e.clientX;
+                this.y = e.clientY;
+            }
+        }
+    })
+</script>
