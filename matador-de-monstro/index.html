@@ -1,0 +1,198 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script src="https://unpkg.com/vue"></script>
+  <style>
+    .panel{
+      background-color: whitesmoke;
+      margin: 20px;
+      -webkit-box-shadow: 2px 2px 3px 3px #99919177;  /* Safari 2-4, iOS 4.0.2 - 4.2, Android 2.2+ */
+      -moz-box-shadow:    2px 2px 3px 3px #99919177;  /* Firefox 2.3 - 2.3 */
+      box-shadow:        3px 3px 3px 3px #99919177;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+    }
+    .jogador{
+      width: 50%;
+      float: left;
+    }
+    .monstro{
+      width: 50%;
+      float: right;
+    }
+    .barra-progresso-jogador{
+      height: 30px;
+      background-color: green;
+    }
+    .barra_progresso_critica{
+      background-color:rgb(255, 94, 94) !important;
+    }
+    .barra-progresso-monstro{
+      height: 30px;
+      background-color: green;
+    
+    }
+    .barra-progresso-fora{
+      border: 1px solid black;
+      width: 60%;
+      margin-left: 150px;
+    }
+    .button{
+      color: #fff;
+      background-color: #337ab7;
+      border-color: #2e6da4;
+      display: inline-block;
+      margin-bottom: 0;
+      font-weight: 400;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.42857143;
+      border-radius: 4px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      margin-left: 20px;
+    }
+    .rowLogMonstro{
+      margin: 5px;
+      border-radius: 2px;
+      background-color: rgb(202, 48, 48);
+      height: 30px;
+      margin-bottom: 10px;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: rgb(231, 231, 231); text-align: center; padding-top: 10px;
+    }
+    .rowLogJogador{
+      margin: 5px;
+      border-radius: 2px;
+      background-color: rgb(0, 171, 223);
+      height: 30px;
+      margin-bottom: 10px;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: rgb(231, 231, 231); text-align: center; padding-top: 10px;
+
+    }
+    .criticoJogador{
+      color: red !important;
+    }
+    .criticoMonstro{
+      color: red !important;
+    }
+    ul li {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .monster{
+      background-color: rgb(202, 40, 40);
+      padding: 10px 0;
+      margin: 10px;
+      color: white;
+    }
+    .jogador_class{
+      background-color: rgb(35, 35, 194);
+      padding: 10px 0;
+      margin: 10px;
+      color: white;
+    }
+    /* .
+    .mons{
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    } */
+
+    .panelxx{
+      display: flex;
+      /* flex-direction: column; */
+    }
+    .jog {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .mons{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+  </style>
+<div id="app">
+
+  <div class="panelxx">
+    <div class="jog">
+      <h1>Jogador</h1>
+      <div class="barra-border">
+        <div class="barra">
+          
+        </div>
+      </div>
+      <div>100%</div>
+    </div>
+
+    <div class="mons">
+      <h1>Monstro</h1>
+      <div class="barra-border">
+        <div class="barra">
+          
+        </div>
+      </div>
+      <div>100%</div>
+    </div>
+  </div>
+  
+  <div class="panel">
+    <div class="jogador">
+      <p style="text-align: center">Jogador</p>
+      <div class="barra-progresso-fora">
+        <div class="barra-progresso-jogador" :class="barra_progresso_criticaJ ? 'barra_progresso_critica' : ''" :style="{width: retornaPorcentagemJogador}">
+          <span style="color: white; font-style: inherit;" :class="criticoJogador ? 'criticoJogador' : ''">{{porcentagemJogador}}%</span>
+        </div>
+        
+      </div>
+      
+    </div>
+    <div class="monstro">
+      <p style="text-align: center">Monstro</p>
+      <div class="barra-progresso-fora">
+        <div class="barra-progresso-monstro" :class="barra_progresso_criticaM ? 'barra_progresso_critica' : ''" :style="{width: retornaPorcentagemMonstro}">
+          <span style="color: white; font-style: inherit;" :class="criticoMonstro ? 'criticoMonstro' : ''">{{porcentagemMonstro}}%</span>
+        </div>
+      </div>
+      <!-- <span>100%</span> -->
+
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="iniciar" style="text-align: center;" v-if="mostra_inciar" @click="iniciarNovoJogo">
+      <p v-if="textoPlacar != '' "> {{textoPlacar}}</p>
+      <button class="button">INICIAR NOVO JOGO</button>
+    </div>
+    <div class="menus" style="clear:both; text-align:center; padding-top: 30px;" v-else>
+      <button class="button" style="background-color: red" @click="ataque">ATAQUE</button>
+      <button class="button" style="background-color: rgb(255, 136, 0)" @click="ataque_especial">ATAQUE ESPECIAL</button>
+      <button class="button" style="background-color: green" @click="curar">CURAR</button>
+      <button class="button" style="background-color: gray" @click="desistir">DESISTIR</button>
+    </div>
+  </div>
+
+  <div class="panel"> 
+      <ul>
+        <li v-for="logs in arrLog" :class="logs.cls"> {{ logs.text }} </li>
+      </ul>
+  </div>
+  
+</div>
+
+<script src="app.js"></script>
+
